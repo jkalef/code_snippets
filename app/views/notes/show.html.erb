@@ -1,0 +1,56 @@
+<h1>View Your Code Snippet Here</h1>
+
+
+<%#--VIEW FOR THE NOTES ----------------------------- %>
+<%= @note.title %>
+<br>
+<% if current_user.present? %>
+	<p style="color: red"><%= @note.user.show_name %></p>
+<% end %>
+<br>
+<%= @note.category %>
+<br>
+<%= @note.topic %>
+<br>
+<%= @note.snippet %>
+<br>
+<%= @note.snippet_note%>
+<br>
+<br>
+<%= link_to "Edit This Note", edit_note_path(@note) %>
+<br>
+<%= button_to "Delete This Note", note_path(@note), method: :delete, data: {confirm: "Are You Sure You Want to Delete this Note?!?"} %>
+<br>
+<br>
+
+
+<%# --- FOR COMMENTS ------------------------------- %>
+<%# display error messages if not created %>
+<% if @comment.errors.any? %>
+	<ul>
+		<% @comment.errors.full_messages.each do |message| %>
+			<li><%= message %></li>
+		<% end %>
+	</ul>
+<% end %>
+
+<%# form to create a new comment %>
+<%= form_for @comment, url: note_comments_path(@note) do |f| %>
+	<%= f.label :body %>
+	<%= f.text_area :body %>
+	<br>
+	<%= f.submit "Submit Comment" %>
+<% end %>
+
+<%# display the comments.  @comments is defined in the notes controller %>
+<h2>Comments about this note:</h2>
+<% @comments.each do |comment| %>
+	<%= comment.body %>
+	<br>
+	<% if comment.user.present? %>
+		<span style="color: red"><%= comment.user.show_name %></span>
+	<% end %>
+	<%= button_to "Delete Comment", note_comment_path(comment.note, comment), method: :delete, data: {confirm: "Are you sure you want to delete this comment?"} %>
+	<br>
+	<hr>
+<% end %>

@@ -1,0 +1,29 @@
+<%#---DISPLAY ERROR MESSAGES IF NOTE DOESN'T SAVE ------ %>
+<% if @note.errors.any? %>
+	<ul>
+		<% @note.errors.full_messages.each do |message| %>
+			<li><%= message %></li>
+		<% end %>
+	</ul>
+<% end %>
+
+
+<%#---FORM TO CREATE A NEW NOTE --------------------------%>
+<%= form_for @note do |f| %>
+	<%# see notes_helper file for the drop-down list%>
+	<%= f.label :category %>
+	<%= f.select :category, options_for_category, prompt: "Select One" %>
+	<br>
+	<%# see notes_helper file for the drop-down list %>
+	<%= f.label :topic %>
+	<%= f.select :topic, options_for_topic, prompt: "Select One" %>
+	<br>
+	<%= f.text_field :title, placeholder: "Brief Snippet Title Here" %>
+	<br>
+	<%= f.text_area :snippet, placeholder: "Place the code snippet here" %>
+	<br>
+	<%= f.text_area :snippet_note, placeholder: "Place any text notes about the 
+															snippet here" %>
+	<br>
+	<%= f.submit %>
+<% end %>

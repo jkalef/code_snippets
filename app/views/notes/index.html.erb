@@ -1,0 +1,45 @@
+<h1>Welcome to Code Snippets!!</h1>
+
+<%= link_to "Create A New Note", new_note_path %>
+<br>
+<br>
+
+<%#--DISPLAY THE NOTES, SORTED BY CATEGORY----------------------------------%>
+<%# table to display all of your notes.  Eventually, will use this table
+to display only the topics with the amount of notes selected in each topic %>
+<%# small table to display your current amount of notes by category %>
+<table>
+	<tr>
+		<th>Topic</th>
+		<th>Number of Notes</th>
+		<th>View Notes</th>
+	</tr>
+
+	<% @notes.each do |note| %>
+	<tr>		
+			<td><%= note.topic %></td>
+			<td>Data Here Eventually</td>
+			<td>
+				<%= link_to "View Note", note_path(note) %>
+			</td>
+		<% end %>
+	</tr>
+</table>
+
+<br>
+<br>
+
+
+<%#---TOTAL NUMBER OF NOTES TAKEN IN EACH TOPIC------------------------%>
+<div>
+	<%= link_to "Rails", list_path(topic: "Rails") %> (<%= @rails_total %>)
+	<br>
+	<%= link_to "Ruby", list_path(topic: "Ruby") %> (<%= @ruby_total %>)
+	<br>
+	<%= link_to "Javascript", list_path(topic: "Javascript") %> (<%= @js_total %>)
+	<br>
+	<%= link_to "jQuery", list_path(topic: "jQuery") %> (<%= @jQuery_total %>)
+	<br>
+	<%= link_to "HMTL/CSS", list_path(topic: "HTML/CSS") %> (<%= @html_css_total %>)
+	<br>
+</div>
